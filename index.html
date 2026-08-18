@@ -5,14 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Manager</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function () {
+      var theme = localStorage.getItem("taskmanager.theme");
+      if (theme) document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 </head>
 <body>
   <div id="app">
-    <header>
-      <h1>Task Manager</h1>
+    <header class="app-header">
+      <button type="button" id="theme-toggle" aria-label="Alternar tema">🌙</button>
     </header>
     <main>
-      <p>Projeto base pronto para começar.</p>
+      <form id="task-form">
+        <input type="hidden" id="task-id">
+        <div class="form-row">
+          <label for="task-title" class="sr-only">Título da tarefa</label>
+          <input type="text" id="task-title" placeholder="Título da tarefa" aria-label="Título da tarefa" required>
+        </div>
+        <div class="form-row form-row-grid">
+          <label for="task-category" class="sr-only">Categoria</label>
+          <input type="text" id="task-category" placeholder="Categoria (ex: Estudo)" aria-label="Categoria">
+          <label for="task-priority" class="sr-only">Prioridade</label>
+          <select id="task-priority" aria-label="Prioridade">
+            <option value="baixa">Baixa</option>
+            <option value="media" selected>Média</option>
+            <option value="alta">Alta</option>
+          </select>
+          <label for="task-due-date" class="sr-only">Prazo</label>
+          <input type="date" id="task-due-date" aria-label="Prazo">
+        </div>
+        <div class="form-row form-actions">
+          <button type="submit" id="task-submit">Adicionar tarefa</button>
+          <button type="button" id="task-cancel-edit" class="btn-secondary hidden">Cancelar edição</button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <label for="task-search" class="sr-only">Buscar tarefas</label>
+        <input type="search" id="task-search" placeholder="Buscar tarefas..." aria-label="Buscar tarefas">
+        <div class="filters" id="task-filters">
+          <button type="button" class="filter-btn active" data-filter="todas">Todas</button>
+          <button type="button" class="filter-btn" data-filter="pendentes">Pendentes</button>
+          <button type="button" class="filter-btn" data-filter="concluidas">Concluídas</button>
+        </div>
+      </div>
+
+      <p id="empty-state" class="empty-state hidden">Nenhuma tarefa encontrada.</p>
+      <ul id="task-list" class="task-list"></ul>
     </main>
   </div>
 
