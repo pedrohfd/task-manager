@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const STORAGE_KEY = "taskmanager.tasks";
+  const THEME_STORAGE_KEY = "taskmanager.theme";
 
   const PRIORITY_LABELS = {
     baixa: "Baixa",
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const filtersContainer = document.getElementById("task-filters");
   const taskList = document.getElementById("task-list");
   const emptyState = document.getElementById("empty-state");
+  const themeToggleBtn = document.getElementById("theme-toggle");
 
   let tasks = loadTasks();
   let currentFilter = "todas";
@@ -37,6 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function saveTasks() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }
+
+  function getTheme() {
+    return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    themeToggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = savedTheme || (prefersDark ? "dark" : "light");
+    themeToggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+    document.documentElement.setAttribute("data-theme", theme);
   }
 
   function generateId() {
@@ -237,5 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   });
 
+  themeToggleBtn.addEventListener("click", () => {
+    applyTheme(getTheme() === "dark" ? "light" : "dark");
+  });
+
+  initTheme();
   render();
 });

@@ -13,6 +13,36 @@
   --font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+:root[data-theme="dark"] {
+  --color-bg: #16181d;
+  --color-surface: #1f222a;
+  --color-text: #f1f2f4;
+  --color-text-muted: #9aa0ab;
+  --color-primary: #3b82f6;
+  --color-primary-dark: #60a5fa;
+  --color-border: #33373f;
+  --color-danger: #f87171;
+  --color-priority-alta: #f87171;
+  --color-priority-media: #fbbf24;
+  --color-priority-baixa: #4ade80;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #16181d;
+    --color-surface: #1f222a;
+    --color-text: #f1f2f4;
+    --color-text-muted: #9aa0ab;
+    --color-primary: #3b82f6;
+    --color-primary-dark: #60a5fa;
+    --color-border: #33373f;
+    --color-danger: #f87171;
+    --color-priority-alta: #f87171;
+    --color-priority-media: #fbbf24;
+    --color-priority-baixa: #4ade80;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,6 +54,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   min-height: 100vh;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 #app {
@@ -32,11 +63,36 @@ body {
   padding: 1rem;
 }
 
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.app-header h1 {
+  font-size: 1.25rem;
+}
+
+#theme-toggle {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-bg);
+}
+
 main {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1.5rem;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .sr-only {
@@ -176,6 +232,7 @@ button:hover {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   background-color: var(--color-surface);
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .task-item.done {
