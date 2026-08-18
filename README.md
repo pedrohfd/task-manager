@@ -1,6 +1,15 @@
 # Task Manager
 
-Projeto base em HTML, CSS e JavaScript puros.
+Gerenciador de tarefas em HTML, CSS e JavaScript puros, com persistência em `localStorage`.
+
+## Funcionalidades
+
+- Criar, editar e excluir tarefas
+- Marcar tarefas como concluídas
+- Categoria, prioridade e prazo por tarefa
+- Filtro por status (todas / pendentes / concluídas)
+- Busca por texto
+- Dados salvos localmente no navegador (`localStorage`)
 
 ## Como rodar
 
